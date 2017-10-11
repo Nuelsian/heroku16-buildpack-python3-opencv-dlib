@@ -65,9 +65,9 @@ export PYTHONPATH="$BUILD_DIR/.heroku/vendor/lib/python3.6.2"
 # Setup environment
 mkdir -p $CACHE_DIR
 title "Generating environment"
-if [ ! -f $CACHE_DIR/vendor.tar.gz ]; then
+if [ ! -f $CACHE_DIR/vendor.tar.xz ]; then
 	subtitle "Fetching..."
-	curl -s -L "http://chunk.io/f/f0ccfebbe4384004bbe2fffcf2c6e54c" > $CACHE_DIR/vendor.tar.gz
+	curl -s -L "http://chunk.io/f/f0ccfebbe4384004bbe2fffcf2c6e54c" > $CACHE_DIR/vendor.tar.xz
 fi
 subtitle "Unpacking..."
 tar -xvf $CACHE_DIR/vendor.tar.xz -C $BUILD_DIR
@@ -75,6 +75,7 @@ tar -xvf $CACHE_DIR/vendor.tar.xz -C $BUILD_DIR
 # installing application dependencies
 if [ -f $BUILD_DIR/requirements.txt ]; then
 	title "Found requirements.txt, installing dependencies using pip"
+	$BUILD_DIR/.heroku/vendor/bin/pip3 install gunicorn
 	$BUILD_DIR/.heroku/vendor/bin/pip3 install -r requirements.txt --exists-action=w --src=./.heroku/src --allow-all-external
 fi
 
@@ -88,5 +89,6 @@ export PYTHONPATH="\$HOME/.heroku/vendor/lib/python3.6.2"
 EOF
 
 deep-mv $BUILD_DIR $ORIG_BUILD_DIR
+$BUILD_DIR/.heroku/vendor/bin/pip3 install
 
 title "Buildpack installed."
