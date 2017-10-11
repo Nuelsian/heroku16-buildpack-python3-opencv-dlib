@@ -76,7 +76,7 @@ tar -xvf $CACHE_DIR/vendor.tar.xz -C $BUILD_DIR
 if [ -f $BUILD_DIR/requirements.txt ]; then
 	title "Found requirements.txt, installing dependencies using pip"
 	$BUILD_DIR/.heroku/vendor/bin/pip3 install gunicorn
-	$BUILD_DIR/.heroku/vendor/bin/pip3 install -r requirements.txt --exists-action=w --src=./.heroku/src --allow-all-external
+	$BUILD_DIR/.heroku/vendor/bin/pip3.6 install -r requirements.txt --exists-action=w --src=./.heroku/src --allow-all-external
 fi
 
 # creating env variables
@@ -89,6 +89,6 @@ export PYTHONPATH="\$HOME/.heroku/vendor/lib/python3.6.2"
 EOF
 
 deep-mv $BUILD_DIR $ORIG_BUILD_DIR
-$BUILD_DIR/.heroku/vendor/bin/pip3 install
+$BUILD_DIR/.heroku/vendor/bin/pip3.6 install gunicorn
 
 title "Buildpack installed."
