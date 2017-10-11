@@ -70,7 +70,7 @@ if [ ! -f $CACHE_DIR/vendor.tar.gz ]; then
 	curl -s -L "http://chunk.io/f/f0ccfebbe4384004bbe2fffcf2c6e54c" > $CACHE_DIR/vendor.tar.gz
 fi
 subtitle "Unpacking..."
-tar -xvf $CACHE_DIR/vendor.tar.gz -C $BUILD_DIR
+tar -xvf $CACHE_DIR/vendor.tar.xz -C $BUILD_DIR
 
 # installing application dependencies
 if [ -f $BUILD_DIR/requirements.txt ]; then
